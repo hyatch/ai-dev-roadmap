@@ -1,0 +1,15 @@
+# Tokenizers
+- Backbone of the LLM
+- Most errors arise from tokenization inefficiencies (GPT-2 Python)
+- Training Phase:
+  - Training data is fed into a regex expression and chunked
+  - Each chunk is turned into encoded into utf-8 bytecode
+  - Define a maximum vocab size, track the most common byte pairs and merge them into a new byte in the vocabulary
+    - These new bytes are built from the basic bytes (0-255)
+    - Most common pairs will have smaller byte ids
+  - Track the merges completed
+  - Continue merging until the vocabulary size is achieved
+- Deployment Phase:
+  - The model will look for sequences in its trained vocabulary starting from lower-level bigrams and moving up to more complex sequences
+  - Substitutes tokens for byte ids in the dictionary
+  - Compresses the query into learned tokens that the LLM can recognize
